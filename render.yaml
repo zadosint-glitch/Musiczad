@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: mafia-music-api-pro
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: ADMIN_USER
+        value: MAFIA
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/mafia_music.db
+      - key: PYTHON_VERSION
+        value: 3.11.9
+    disk:
+      name: mafia-music-data
+      mountPath: /var/data
+      sizeGB: 1
